@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Employee
+  title: SpringBoot Microservice App
+  annotations:
+    github.com/project-slug: Employee
+    harness.io/pipelines: https://app.harness.io/ng/#/account/RQPffSHZRz6kgLd9lsS2ug/home/orgs/default/projects/default_project/details
+    
+    # https://app.harness.io/ng/#/account/RQPffSHZRz6kgLd9lsS2ug/module/ci/orgs/default/projects/default_project/pipelines
+    
+    # https://app.harness.io/ng/#/account/RQPffSHZRz6kgLd9lsS2ug/home/orgs/default/projects/default_project/pipelines/fetchfromcustom/pipeline-studio/?storeType=INLINE
+     
+  tags:
+    - spring-boot
+    - java
+    - maven  
+spec:
+  type: service
+  owner: lvvandana
+  lifecycle: experimental

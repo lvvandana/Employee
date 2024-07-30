@@ -1,0 +1,62 @@
+pipeline:
+  name: DEV-CRUD
+  identifier: DEVCRUD
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: harnessgitconnector
+        repoName: Employee
+        build: <+input>
+  stages:
+    - stage:
+        name: CI-CD
+        identifier: CICD
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Plan
+                  identifier: Plan
+                  spec:
+                    shell: Sh
+                    command: echo "Plan"
+              - step:
+                  type: Run
+                  name: Build
+                  identifier: Build
+                  spec:
+                    shell: Sh
+                    command: echo "Build"
+              - step:
+                  type: Run
+                  name: Test
+                  identifier: Test
+                  spec:
+                    connectorRef: dockerdelegate
+                    image: maven:3-openjdk-17
+                    shell: Sh
+                    command: mvn surefire:test
+              - step:
+                  type: BuildAndPushGCR
+                  name: Deploy
+                  identifier: Deploy
+                  spec:
+                    connectorRef: gcplbg
+                    host: gcr.io
+                    projectID: lloyds-hack-grp-23
+                    imageName: dev-crud
+                    tags:
+                      - latest
